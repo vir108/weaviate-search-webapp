@@ -1,3 +1,4 @@
+from email.policy import default
 from urllib import request
 from fastapi import FastAPI, Request, Form, Depends
 from fastapi.templating import Jinja2Templates
@@ -97,7 +98,7 @@ def get_query_for_ner_concept(text_ner):
     return(query_result['data']['Get']['Product'])
 
 @app.post("/search")
-async def search(request: Request, search: str = Form(), model: QueryParse = Depends(get_model)): 
+async def search(request: Request, search: str = Form(default), model: QueryParse = Depends(get_model)): 
      search_ner=model.parse_query(search, 'xx')
      print(search_ner)
      results = get_query_for_ner_concept(search_ner)

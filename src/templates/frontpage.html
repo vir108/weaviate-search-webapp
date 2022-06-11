@@ -6,7 +6,7 @@
     method="post"
     enctype="application/x-www-form-urlencoded"
 >
-    <div class="ui action input">
+    <div class="ui action fluid input">
         <input required="true" value="{{ search }}" name="search" type="text" placeholder="Search...">
         <!-- this will send post req w/ data in the body in key-value pairs -->
         <!-- key - "search" and value will be whatever user entered into this input element -->
@@ -26,7 +26,7 @@
 
 {% for product in results %}
 
-<div class="ui card">
+<div class="ui card fluid">
     <div class="content">
       <div class="header">{{ product.title }}</div>
       <div class="meta">{{ product.mainCategory }}</div>
