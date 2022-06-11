@@ -6,12 +6,24 @@
     method="post"
     enctype="application/x-www-form-urlencoded"
 >
-    <div class="ui action input">
-        <input required="true" value="{{ search }}" name="search" type="text" placeholder="Search...">
-        <!-- this will send post req w/ data in the body in key-value pairs -->
-        <!-- key - "search" and value will be whatever user entered into this input element -->
-        <button type="submit" class="ui button">Search</button>
+  <div class="ui center aligned basic segment">
+    <div class="left ui fluid action input">
+      <input value="{{ search }}" name="search" type="text" placeholder="Search...">
+      <!-- this will send post req w/ data in the body in key-value pairs -->
+      <!-- key - "search" and value will be whatever user entered into this input element -->
+      <button type="submit" class="ui button">Search</button>
     </div>
+    <div class="ui horizontal divider">
+      Or
+    </div>
+    <div class="ui fluid teal">      
+      <input type="file" name="image"/>
+      <!-- this will send post req w/ data in the body in key-value pairs -->
+      <!-- key - "search" and value will be whatever user entered into this input element -->              
+      <button type="submit" class="ui button" formaction="/imagesearch">Upload Image</button>
+          
+    </div>
+  </div>
 </form>
 
 
