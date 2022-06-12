@@ -11,20 +11,10 @@ from utilities import download_blob
 #client = weaviate.Client("http://localhost:8081") 
 
 # this is for text search, now has electronic product informtaiton 
-weaviate_url = 'http://34.67.249.252:8080/' 
+weaviate_url = 'http://34.75.173.221:8080/'
 secret = weaviate.AuthClientPassword("admin", "admin")
 # Initiate the client with the secret
 client = weaviate.Client(weaviate_url, secret)
-
-
-# # this is for text search, now has electronic product informtaiton 
-# weaviate_url_image = 'http://34.67.249.252:8080/' 
-# secret_image = weaviate.AuthClientPassword("admin", "admin")
-# # Initiate the client with the secret
-# client_image = weaviate.Client(weaviate_url, secret)
-
-
-
 
 templates=Jinja2Templates(directory="./src/templates")
 app = FastAPI() 
@@ -37,20 +27,6 @@ def frontpage(request: Request):  #, concept = None
     """
     # print(request)
     return templates.TemplateResponse("frontpage.html", {"request": request, "results": []})
-
-# def get_query_for_ner_concept(text: str):
-#     near_text_filter = {
-#         "concepts": [text]
-#        # "certainty": 0.7
-#     }
-#     query_result = client.query\
-#         .get("Product", ["title","description","price","mainCategory"])\
-#         .with_near_text(near_text_filter)\
-#         .with_limit(5)\
-#         .do()
-#     return(query_result['data']['Get']['Product'])
-# "category", "brand" ,
-
 
 def get_query_for_ner_concept(text_ner):
 
@@ -69,12 +45,12 @@ def get_query_for_ner_concept(text_ner):
                      "operator": "Equal",
                      "valueString": text_ner['VENDOR']
                    })
-            # elif key =='CATEGORY':
-            #      operands_list.append({
-            #          "path": ["category"],
-            #          "operator": "Equal",
-            #          "valueString": text_ner['CATEGORY']
-            #        })
+            elif key =='CATEGORY':
+                operands_list.append({
+                   "path": ["category"],
+                   "operator": "Equal",
+                   "valueString": text_ner['CATEGORY']
+                })
             else: 
                 continue 
     if len(operands_list)>0:            
@@ -83,14 +59,14 @@ def get_query_for_ner_concept(text_ner):
             "operands": operands_list
             }    
         query_result = client.query\
-                .get("Product", ["title", "brand","description"])\
+                .get("Product", ["title", "brand","description","price"])\
                 .with_near_text(near_text_filter)\
                 .with_limit(5)\
                 .with_where(where_filter)\
                 .do()
     else: # if search query doesnt have name to be regonized by NER 
         query_result = client.query\
-        .get("Product", ["title", "description"])\
+        .get("Product", ["title", "brand", "description","price"])\
         .with_near_text(near_text_filter)\
         .with_limit(5)\
         .do()
