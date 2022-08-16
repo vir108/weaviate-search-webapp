@@ -8,13 +8,13 @@ import weaviate
 from utilities import download_blob
 
 # initiate the Weaviate client
-#client = weaviate.Client("http://localhost:8081") 
+client = weaviate.Client("http://localhost:8080") 
 
 # this is for text search, now has electronic product informtaiton 
-weaviate_url = 'http://34.67.249.252:8080/' 
-secret = weaviate.AuthClientPassword("admin", "admin")
+#weaviate_url = 'http://34.67.249.252:8080/' 
+#secret = weaviate.AuthClientPassword("admin", "admin")
 # Initiate the client with the secret
-client = weaviate.Client(weaviate_url, secret)
+#client = weaviate.Client(weaviate_url, secret)
 
 
 # # this is for text search, now has electronic product informtaiton 
