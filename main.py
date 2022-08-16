@@ -83,14 +83,14 @@ def get_query_for_ner_concept(text_ner):
             "operands": operands_list
             }    
         query_result = client.query\
-                .get("Product", ["title", "brand","description"])\
+                .get("Product", ["title", "productDescription","price"])\
                 .with_near_text(near_text_filter)\
                 .with_limit(5)\
                 .with_where(where_filter)\
                 .do()
     else: # if search query doesnt have name to be regonized by NER 
         query_result = client.query\
-        .get("Product", ["title", "description"])\
+        .get("Product", ["title", "productDescription","price"])\
         .with_near_text(near_text_filter)\
         .with_limit(5)\
         .do()
